@@ -12,6 +12,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,7 +23,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.CheckCircle
@@ -87,6 +90,7 @@ class MainActivity : ComponentActivity() {
                         containerColor = MaterialTheme.colorScheme.primaryContainer,
                         contentColor = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
+                            .height(70.dp)
                             .fillMaxWidth()
                     ) {
                         Row(
@@ -129,12 +133,12 @@ class MainActivity : ComponentActivity() {
                 },
             ) {
 
-                var chords = remember { mutableStateListOf("creep", "jigsaw falling into place", "patience") }
-                var genres = remember { mutableStateListOf("sla", "pop", "jazz", "folk") }
+                var chords = remember { mutableStateListOf("cifra 1","teste","weird fishes","creep","jigsaw falling into place", "patience") }
+                var genres = remember { mutableStateListOf("all", "sla", "pop", "jazz", "folk") }
 
                 Column(
                     modifier = Modifier
-                        .size(width = 500.dp, height = 1000.dp)
+                        .width(500.dp)
                         .padding(vertical = 30.dp, horizontal = 20.dp)
                 ) {
                     Row(
@@ -170,7 +174,7 @@ class MainActivity : ComponentActivity() {
 
                     Spacer(
                         modifier = Modifier
-                            .height(15.dp)
+                            .height(10.dp)
                     )
 
                     Text(
@@ -185,6 +189,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .size(width = 500.dp, height = 1000.dp)
                             .padding(vertical = 30.dp, horizontal = 10.dp)
+                            .verticalScroll(rememberScrollState())
                     ) {
 
                         for (i in 0..chords.size - 1) {
@@ -222,7 +227,7 @@ fun CardTop(){
                 .padding(top = 30.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
-            ) {
+        ) {
 
             Icon(
                 imageVector = Icons.Filled.Home,
@@ -268,11 +273,12 @@ fun MusicGenre(genres: SnapshotStateList<String>){
     ) {
         Row(
             modifier = Modifier.fillMaxWidth()
-                .padding(vertical = 5.dp, horizontal = 12.dp),
+                .padding(vertical = 5.dp, horizontal = 12.dp)
+                .horizontalScroll(rememberScrollState()),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly
 
-            ) {
+        ) {
 
             for(i in 0 .. genres.size - 1){
                 Button(
@@ -286,6 +292,10 @@ fun MusicGenre(genres: SnapshotStateList<String>){
                         fontSize = 16.sp
                     )
                 }
+                Spacer(
+                    modifier = Modifier
+                        .width(5.dp)
+                )
             }
         }
     }
